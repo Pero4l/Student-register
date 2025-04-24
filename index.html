@@ -1,17 +1,119 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student</title>
+  <meta charset="UTF-8">
+  <title>Student Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    h2 {
+      margin-top: 0;
+    }
+  
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- SCRIPT -->
+  <h1>Student Register</h1>
 
-    <script>
+  <section id="byClass">
+    <h2>Students by Class</h2>
+  </section>
 
-    </script>
+  <section id="byGrade">
+    <h2>Students by Grade</h2>
+  </section>
+
+  <footer>
+    View on GitHub: <a href="https://github.com/Pero4l/Student-register" target="_blank">Student Register Repo</a>
+  </footer>
+
+  <script>
     
+    let students = [
+        { name: "Alice", class: "JSS1", score: 82 },
+        { name: "Bob", class: "JSS2", score: 45 },
+        { name: "Charlie", class: "JSS1", score: 67 },
+        { name: "David", class: "JSS3", score: 90 },
+        { name: "Eva", class: "JSS2", score: 33 },
+        { name: "Faith", class: "JSS3", score: 51 },
+        { name: "George", class: "JSS1", score: 74 },
+        { name: "Hannah", class: "JSS2", score: 59 },
+        { name: "Ola", class: "JSS2", score: 69 },
+        { name: "Blessing", class: "JSS3", score: 20 },
+        { name: "Daniel", class: "JSS2", score: 59 },
+        { name: "Amos", class: "JSS1", score: 75 },
+        { name: "Daniel", class: "JSS1", score: 62 },
+        { name: "Chidinmma", class: "JSS1", score: 47 },
+        { name: "Favor", class: "JSS1", score: 83 },
+        { name: "Emmalex", class: "JSS1", score: 35 },
+        { name: "Bibianna", class: "JSS2", score: 15 },
+        { name: "Julius", class: "JSS2", score: 42 },
+        { name: "Eze", class: "JSS2", score: 67 },
+        { name: "Mark", class: "JSS2", score: 51 },
+        { name: "Kristin", class: "JSS2", score: 70 },
+        { name: "Gideon", class: "JSS3", score: 85 },
+        { name: "Luke", class: "JSS3", score: 66 },
+        { name: "Gilbert", class: "JSS3", score: 25 },
+        { name: "Lexis", class: "JSS3", score: 3 },
+        { name: "Judith", class: "JSS3", score: 30 }
+    ];
+
+    
+    function getGrade(score) {
+      if (score >= 70) return 'A';
+      if (score >= 60) return 'B';
+      if (score >= 50) return 'C';
+      if (score >= 40) return 'D';
+      return 'F';
+    }
+
+
+    let classGroups = {};
+    students.forEach(student => {
+      if (!classGroups[student.class]) {
+        classGroups[student.class] = [];
+      }
+      classGroups[student.class].push(student);
+    });
+
+    
+    let gradeGroups = {};
+    students.forEach(student => {
+      let grade = getGrade(student.score);
+      if (!gradeGroups[grade]) {
+        gradeGroups[grade] = [];
+      }
+      gradeGroups[grade].push(student);
+    });
+
+   
+    let byClassSection = document.getElementById("byClass");
+    for (let className in classGroups) {
+      let section = document.createElement("section");
+      section.innerHTML = `<h3>${className}</h3><ol>${classGroups[className].map(s => `<li>${s.name} - ${s.score}</li>`).join("")}</ol>`;
+      byClassSection.appendChild(section);
+    }
+
+    let byGradeSection = document.getElementById("byGrade");
+    for (let grade in gradeGroups) {
+      let section = document.createElement("section");
+      section.innerHTML = `<h3>Grade ${grade}</h3><ol>${gradeGroups[grade].map(s => `<li>${s.name} - ${s.score}</li>`).join("")}</ol>`;
+      byGradeSection.appendChild(section);
+    }
+  </script>
 </body>
 </html>
